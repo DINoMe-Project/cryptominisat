@@ -8,6 +8,8 @@ Follow the tutorial below to install; It will generate `compose`, `count`, `samp
 * Use `count` for Jaccard distance measure;
 * Use `sampler` for tuple generations;
 
+Please refer to [ReadMeDINoMe](ReadMeDINoMe.md) for how to use them.
+
 **Below is the original tutorial for cryptominisat.**
 
 Docker usage

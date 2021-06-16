@@ -1,2 +1,0 @@
-# DINoMeCounter
-Read Wiki

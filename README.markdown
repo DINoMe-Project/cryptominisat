@@ -3,7 +3,9 @@ CryptoMiniSat SAT solver with a approximated model counter + sampler for DINoMe
 
 DINoMe User
 -----
-* Use counter for Jaccard distance measure;
+Follow the tutorial below to install; It will generate `compose`, `count`, `sampler` binaries;
+* use compose for postcondition construction;
+* Use count for Jaccard distance measure;
 * Use sampler for tuple generations;
 
 **Below is the original tutorial for cryptominisat.**

@@ -1,29 +1,12 @@
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Linux build](https://travis-ci.org/msoos/cryptominisat.svg?branch=master)](https://travis-ci.org/msoos/cryptominisat)
-[![Windows build](https://ci.appveyor.com/api/projects/status/8d000iy63xu7eau5?svg=true)](https://ci.appveyor.com/project/msoos/cryptominisat)
-[![Coverity](https://scan.coverity.com/projects/507/badge.svg)](https://scan.coverity.com/projects/507)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/f043efa22ea64e9ba44fde0f3a4fb09f)](https://www.codacy.com/app/soos.mate/cryptominisat?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=msoos/cryptominisat&amp;utm_campaign=Badge_Grade)
-[![Docker Hub](https://img.shields.io/badge/docker-latest-blue.svg)](https://hub.docker.com/r/msoos/cryptominisat/)
-
-
-CryptoMiniSat SAT solver
+CryptoMiniSat SAT solver with a approximated model counter + sampler for DINoMe
 ===========================================
 
-This system provides CryptoMiniSat, an advanced incremental SAT solver. The system has 3
-interfaces: command-line, C++ library and python. The command-line interface
-takes a [cnf](http://en.wikipedia.org/wiki/Conjunctive_normal_form) as an
-input in the [DIMACS](http://www.satcompetition.org/2009/format-benchmarks2009.html)
-format with the extension of XOR clauses. The C++ and python interface mimics this and also
-allows for incremental use: assumptions and multiple `solve` calls.
-A C compatible wrapper is also provided.
-
-When citing, always reference our [SAT 2009 conference paper](https://link.springer.com/chapter/10.1007%2F978-3-642-02777-2_24), bibtex record is [here](http://dblp.uni-trier.de/rec/bibtex/conf/sat/SoosNC09).
-
-License
+DINoMe User
 -----
+* Use counter for Jaccard distance measure;
+* Use sampler for tuple generations;
 
-Please read LICENSE.txt for a discussion. Everything that is needed to build is MIT licensed. The M4RI library (not included) is GPL, so in case you have M4RI installed, you must build with `-DNOM4RI=ON` or `-DMIT=ON` in case you need a pure MIT build.
-
+**Below is the original tutorial for cryptominisat.**
 
 Docker usage
 -----

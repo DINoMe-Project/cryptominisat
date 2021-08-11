@@ -23,16 +23,11 @@ THE SOFTWARE.
 #ifndef __CLAUSEDUMPER_H__
 #define __CLAUSEDUMPER_H__
 
-#include "cloffset.h"
-#include "compfinder.h"
-#include "cryptominisat5/solvertypesmini.h"
 #include <fstream>
-#include <limits>
-#include <map>
-#include <set>
-#include <unordered_set>
 #include <vector>
-#include "solver.h"
+#include <limits>
+#include "cryptominisat5/solvertypesmini.h"
+#include "cloffset.h"
 
 using std::vector;
 
@@ -40,19 +35,19 @@ namespace CMSat {
 
 class Solver;
 
-class ClauseDumper {
+class ClauseDumper
+{
 public:
-  explicit ClauseDumper(const Solver *_solver,
-                        const CompFinder *_compFinder = nullptr)
-      : solver(_solver), compFinder(_compFinder) {
+    explicit ClauseDumper(const Solver* _solver) :
+        solver(_solver)
+    {}
 
-  
-    // do not use compFinder as it is timeout.
-    if (compFinder && compFinder->getTimedOut()){
-      std::cerr<<"!!!!!! attention, trying to use a timeout comp finder.";
-      compFinder = nullptr;
+    ~ClauseDumper() {
+        if (outfile) {
+            outfile->close();
+            delete outfile;
+        }
     }
-  }
 
     void write_unsat(std::ostream *out);
     void dump_irred_clauses_preprocessor(std::ostream *out);
@@ -64,39 +59,36 @@ public:
     void open_file_and_dump_irred_clauses(const std::string& fname);
     void open_file_and_dump_red_clauses(const std::string& fname);
 
-    uint32_t BelongsToIndComp(const Lit &l);
+
 private:
-  const Solver *solver;
-  std::ofstream *outfile = NULL;
+    const Solver* solver;
+    std::ofstream* outfile = NULL;
 
-  void open_dump_file(const std::string &filename);
+    void open_dump_file(const std::string& filename);
 
-  void dump_irred_cls_for_preprocessor(std::ostream *out, bool outer_number);
-  void dump_bin_cls(std::ostream *out, const bool dumpRed, const bool dumpIrred,
-                    const bool outer_number);
-  size_t get_preprocessor_num_cls(bool outer_numbering);
-  void dump_red_cls(std::ostream *out, bool outer_numbering);
-  void dump_eq_lits(std::ostream *out, bool outer_numbering);
-  void dump_unit_cls(std::ostream *out, bool outer_numbering);
-  uint32_t dump_blocked_clauses(std::ostream *out, bool outer_numbering);
-  void dump_irred_cls(std::ostream *out, bool outer_numbering);
-  uint32_t dump_component_clauses(std::ostream *out, bool outer_numbering);
-  void dump_vars_appearing_inverted(std::ostream *out, bool outer_numbering);
-  void dump_clauses(std::ostream *out, const vector<ClOffset> &cls,
-                    const bool outer_number);
-  void findComponent(const Solver *solver, std::map<uint32_t, bool> &useless,
-                     bool outer_numbering);
-  void dump_symbol_vars(std::ostream * out);
-  vector<Lit> tmpCl;
-  const CompFinder *compFinder;
-  std::set<uint32_t> indCompSet;
-  std::set<uint32_t> indFixSet;
-  std::map<uint32_t,bool> useless;
-  std::unordered_set<uint32_t> independent_set;
-  std::map<uint32_t, std::vector<uint32_t>> IndCompVars;
-  std::map<uint32_t, uint32_t> comp_clauses_sizes;
+    void dump_irred_cls_for_preprocessor(std::ostream *out, bool outer_number);
+    void dump_bin_cls(std::ostream *out,
+        const bool dumpRed
+        , const bool dumpIrred
+        , const bool outer_number
+    );
+    size_t get_preprocessor_num_cls(bool outer_numbering);
+    void dump_red_cls(std::ostream *out, bool outer_numbering);
+    void dump_eq_lits(std::ostream *out, bool outer_numbering);
+    void dump_unit_cls(std::ostream *out, bool outer_numbering);
+    uint32_t dump_blocked_clauses(std::ostream *out, bool outer_numbering);
+    void dump_irred_cls(std::ostream *out, bool outer_numbering);
+    uint32_t dump_component_clauses(std::ostream *out, bool outer_numbering);
+    void dump_vars_appearing_inverted(std::ostream *out, bool outer_numbering);
+    void dump_clauses(std::ostream *out,
+        const vector<ClOffset>& cls
+        , const bool outer_number
+    );
+	void dump_symbol_vars(std::ostream * out);
+    vector<Lit> tmpCl;
+
 };
 
-} // namespace CMSat
+}
 
 #endif //__CLAUSEDUMPER_H__

@@ -31,6 +31,7 @@ THE SOFTWARE.
 #include <map>
 #include <string.h>
 
+
 using namespace CMSat;
 using std::vector;
 
@@ -126,7 +127,7 @@ DimacsParser<C, S>::DimacsParser(
 ):
     solver(_solver)
     , verbosity(_verbosity)
-    , lineNum(0)
+    , lineNum(0), clauses(nullptr), xor_clauses(nullptr)
 {
     if (_debugLib) {
         debugLib = *_debugLib;
@@ -528,9 +529,10 @@ template<class C, class S>
 bool DimacsParser<C, S>::parse_DIMACS_main(C& in)
 {
     std::string str;
-
-    for (;;) {
+		int index = 0;
+    for (;;index++) {
         in.skipWhitespace();
+				
         switch (*in) {
         case EOF:
             return true;
